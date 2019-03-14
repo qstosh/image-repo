@@ -1,0 +1,11 @@
+// ==============================
+// Post footer
+// =============================
+
+.footer {
+  padding: $footer-margin-top 0 4em;
+  background: $bg-footer;
+
+  @import "_footer/social";
+  @import "_footer/copyright";
+}

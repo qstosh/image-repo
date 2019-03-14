@@ -1,0 +1,46 @@
+<article class="post bg-white">
+  <!-- Content -->
+  <div class="post-content">
+    {{ if .Site.Params.homeFullContent }}
+    <div class="post-summary">
+      {{ .Content }}
+    </div>
+    {{ else }}
+    <div class="post-summary">
+      {{ .Summary }}
+    </div>
+    <!-- <div class="read-more">
+      <a href="{{ .URL }}" class="read-more-link">{{ i18n "readmore" }}</a>
+    </div> -->
+    {{ end }}
+  </div>
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="{{ .URL }}">{{ .Title }}</a></h1>
+    {{ partial "post/i18nlist.html" . }}
+    <div class="post-meta">
+      <!-- <time datetime="{{ .Date.Format "2006-01-02" }}" class="post-time">
+        {{ .Date.Format (.Site.Params.dateFormatToUse | default "2006-01-02") }}
+      </time> -->
+      {{ with .Params.tags -}}
+      <div class="post-tags">
+        {{ range . }}
+        {{- $name := . -}}
+        {{- with $.Site.GetPage "taxonomy" (printf "tags/%s" $name) | default ($.Site.GetPage "taxonomy" (printf "tags/%s" ($name | urlize))) -}}
+        <a href="{{ .Permalink }}">#{{ $name }}</a>
+        {{ end -}}
+        {{ end }}
+      </div>
+      {{- end }}
+      {{ with .Params.categories -}}
+        <div class="post-category">
+          {{ range . }}
+          {{- $name := . -}}
+          {{- with $.Site.GetPage "taxonomy" (printf "categories/%s" $name) | default ($.Site.GetPage "taxonomy" (printf "categories/%s" ($name | urlize))) -}}
+            <a href="{{ .Permalink }}"> {{ $name }} </a>
+          {{ end -}}
+          {{ end }}
+        </div>
+      {{- end }}
+    </div>
+  </header>
+</article>
